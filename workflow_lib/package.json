@@ -1,0 +1,21 @@
+{
+  "name": "sun-workflow",
+  "version": "1.0.6",
+  "description": "",
+  "main": "workflow/workflow.js",
+  "dependencies": {
+    "vue": "3.2.47"
+  },
+  "files": [
+    "lib",
+    "workflow"
+  ],
+  "peerDependencies": {
+    "vue": ">=3.2.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
