@@ -1,5 +1,5 @@
 ## demo: https://allensunjian.github.io/sun_flow_demo.github.io/
-## 沟通邮件： Allen_sun_js@hotmailc.om
+## 沟通邮件： Allen_sun_js@hotmail.com
 
 # npm 安装 
 ### npm install sun-flow --dev
