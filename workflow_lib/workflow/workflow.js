@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2023 by Allen_sun email: Allen_sun_js@hotmail.com, All Rights Reserved.
+ */
+
 import { h } from "vue";
 
 import icon_ApproverNode from "./img/icon_ApproverNode.png";

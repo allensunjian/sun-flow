@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 2023 by Allen_sun email: Allen_sun_js@hotmail.com, All Rights Reserved.
+ */
 import { RoutineNodeSize } from "../config/config";
 
 /**
@@ -68,7 +71,12 @@ class AddConditionNode {
 
 // 原始节点 大类 type: 1
 class OriginalNode {
-  constructor(headerBg, title, titleColor = "#fff", { nodeRender, removeNodeMethod }) {
+  constructor(
+    headerBg,
+    title,
+    titleColor = "#fff",
+    { nodeRender, removeNodeMethod }
+  ) {
     this.width = RoutineNodeSize.width;
     this.headerHeight = RoutineNodeSize.headerHeight;
     this.headerBg = headerBg;
@@ -139,5 +147,5 @@ export {
   ApproverNode,
   CcNode,
   AgentNode,
-  ConditionNode
+  ConditionNode,
 };

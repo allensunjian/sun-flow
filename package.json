@@ -1,6 +1,6 @@
 {
   "name": "sun-flow",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "",
   "main": "workflow_lib/workflow/workflow.js",
   "files": [
@@ -15,7 +15,7 @@
   "dependencies": {
     "core-js": "^3.8.3",
     "vue": "^3.2.13",
-    "sun-flow": "1.0.8",
+    "sun-flow": "1.0.9",
     "element-plus": "^1.0.2-beta.55"
   },
   "devDependencies": {
