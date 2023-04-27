@@ -8,7 +8,7 @@ import { RoutineNodeSize } from "../config/config";
  * nodeType 0 开始节点 -1 结束节点
  */
 class ProcessNode {
-  constructor(nodeType, text, { nodeRender, removeNodeMethod }) {
+  constructor(nodeType, text, { nodeRender }) {
     this.nodeType = nodeType;
     this.text = text;
     this.width = 16;

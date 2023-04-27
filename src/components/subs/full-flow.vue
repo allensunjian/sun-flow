@@ -2,14 +2,15 @@
  * @Author: allensunjian Allen_sun_js@hotmail.com
  * @Date: 2023-04-22 09:41:53
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2023-04-25 16:56:12
+ * @LastEditTime: 2023-04-27 16:48:27
  * @FilePath: \workflow_demo\workflow-demo\src\components\indexPage.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
 <template>
-  <div style="height: 100vh; width: 100vw">
+  <div style="height: 100%; width: 100%">
     <workflow
       :ref="getWorkflowIns"
+      :panel-controlls="State.flowControlls"
       :middleware-config="controllMiddleWareConfig"
       :controll-middleware="true"
       :flow-data="State.flowData"
@@ -66,7 +67,7 @@
 </template>
 
 <script setup>
-import workflow from "sun-flow";
+import workflow from "../../../workflow_lib/workflow/workflow.js";
 import { reactive } from "vue";
 import { ElMessageBox } from "element-plus";
 let workflowIns = null;
@@ -82,6 +83,28 @@ const State = reactive({
   flowData: [
     {
       nodeType: 1,
+    },
+  ],
+  flowControlls: [
+    {
+      nodeType: 2, //审批人
+      text: "审批人",
+      disabled: false,
+    },
+    {
+      nodeType: 3, //抄送人节点
+      text: "抄送人",
+      disabled: false,
+    },
+    {
+      nodeType: 4, //办理人节点
+      text: "办理人",
+      disabled: true,
+    },
+    {
+      nodeType: 6, //条件节点
+      text: "条件",
+      disabled: false,
     },
   ],
 });

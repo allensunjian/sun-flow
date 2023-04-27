@@ -2,18 +2,18 @@
  * @Author: allensunjian Allen_sun_js@hotmail.com
  * @Date: 2023-04-22 09:41:53
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2023-04-25 16:56:06
+ * @LastEditTime: 2023-04-27 16:48:32
  * @FilePath: \workflow_demo\workflow-demo\src\components\indexPage.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
 <template>
-  <div style="height: 100vh; width: 100vw">
+  <div style="height: 100%; width: 100%">
     <workflow :flow-data="State.flowData" :scale="true"></workflow>
   </div>
 </template>
 
 <script setup>
-import workflow from "sun-flow";
+import workflow from "../../../workflow_lib/workflow/workflow.js";
 import { reactive, h } from "vue";
 
 const State = reactive({

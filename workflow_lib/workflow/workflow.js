@@ -10,6 +10,8 @@ import ico_AgentNode from "./img/ico_AgentNode.png";
 import icon_ConditionNode from "./img/icon_ConditionNode.png";
 import icon_add from "./img/icon_add.png";
 import icon_close from "./img/icon_close.png";
+import icon_close_white from "./img/icon_close--white.png";
+import icon_arrow_right from "./img/icon_arrow_right.png";
 import {
   ProcessNode,
   AddConditionNode,
@@ -28,6 +30,7 @@ const AbstractControllBtn = function (
   handleClass,
   nodeType,
   icon,
+  disabled,
   scope,
   currentNode,
   parentNode
@@ -35,8 +38,13 @@ const AbstractControllBtn = function (
   return h(
     "div",
     {
-      class: ["workflow__controll_btn", handleClass],
+      class: [
+        "workflow__controll_btn",
+        handleClass,
+        disabled ? "workflow__controll_disabled" : "",
+      ],
       onclick: function () {
+        if (disabled) return;
         const middleware = middlewareDispatchCenter("add", {
           nodeName: text,
           nodeType,
@@ -81,22 +89,47 @@ const AbstractControllBtn = function (
         });
       },
     },
-    [h("img", { class: "workflow__controll_icon", src: icon }), text]
+    [
+      h("img", {
+        class: "workflow__controll_icon",
+        src: icon,
+      }),
+      text,
+    ]
   );
 };
 const controllPanelInstance = (currentNode, parentNode) => {
+  const defaultControllIcon = {
+    2: icon_ApproverNode,
+    3: icon_CcNode,
+    4: ico_AgentNode,
+    6: icon_ConditionNode,
+  };
+  const defaultControlls = [
+    ["审批人", "", 2, icon_ApproverNode, false],
+    ["抄送人", "", 3, icon_CcNode, false],
+    ["办理人", "", 4, ico_AgentNode, false],
+    ["条件", "", 6, icon_ConditionNode, false],
+  ];
   const Panel = (scope) => {
+    let controlls = [];
+    if (REF.panelControlls && REF.panelControlls.length > 0) {
+      controlls = REF.panelControlls.map((controll) => [
+        controll.text,
+        controll.class,
+        controll.nodeType,
+        defaultControllIcon[controll.nodeType],
+        controll.disabled,
+      ]);
+    } else {
+      controlls = defaultControlls;
+    }
     return h(
       "div",
       {
         class: "workflow__controll_panel",
       },
-      [
-        ["审批人", "workflow__controll_2", 2, icon_ApproverNode],
-        ["抄送人", "workflow__controll_3", 3, icon_CcNode],
-        ["办理人", "workflow__controll_4", 4, ico_AgentNode],
-        ["条件", "workflow__controll_4", 6, icon_ConditionNode],
-      ].map((btnInfo) =>
+      controlls.map((btnInfo) =>
         AbstractControllBtn.apply(null, [
           ...btnInfo,
           scope,
@@ -223,7 +256,7 @@ let renderMethods = {
         style: `height:${scope.height}px;width:${scope.width}px;z-index: ${
           zIndex + 999
         };${REF.edit ? "opacity:1;" : "opacity:0;margin-bottom: 0"}`,
-        onclick(e) {
+        onclick() {
           if (!REF.edit) return;
           const middleware = middlewareDispatchCenter("add", {
             nodeName: "条件",
@@ -243,7 +276,7 @@ let renderMethods = {
           ? h("img", {
               class: "workflow__header_close",
               onclick: scope.removeNode.bind(scope),
-              src: icon_close,
+              src: icon_close_white,
             })
           : "",
       ]
@@ -288,7 +321,7 @@ const nodeRender = function (zIndex) {
 // 节点真是挂在的删除节点方法
 const removeNodeMethod = function (e) {
   const nodeType = this.nodeType;
-  const reference = this.reference;
+  // const reference = this.reference;
   const referencePos = this.pos;
   const parentNode = this.parentNode;
   const parentNodePos = this.parentNodeIndex;
@@ -348,16 +381,23 @@ const getBodyContent = function () {
     : h(
         "div",
         { style: "display: flex;justify-content: space-between;color:#BFBFBF" },
-        [h("span", {}, [`请设置${this.title}`]), h("span", {}, [`>`])]
+        [
+          h("span", {}, [`请设置${this.title}`]),
+          h(
+            "img",
+            { class: "workflow__body_arrow", src: icon_arrow_right },
+            []
+          ),
+        ]
       );
 };
 
-class AbstractBuilinMethods {
-  constructor() {
-    this.nodeRender = nodeRender;
-    this.removeNodeMethod = removeNodeMethod;
-  }
-}
+// class AbstractBuilinMethods {
+//   constructor() {
+//     this.nodeRender = nodeRender;
+//     this.removeNodeMethod = removeNodeMethod;
+//   }
+// }
 
 // todo: 在原始类中 不应该包括业务方法和属性 需要提出来 比如 nodeRender, removeNodeMethod 之类
 // /**
@@ -609,10 +649,10 @@ const computedTailBorder = function () {
         );
         textStyleSheet += `
                 .${pc}>.workflow__group_tail::after {width: calc(100% - ${
-          first.offsetWidth / 2 + last.offsetWidth / 2
-        }px) !important;left:${first.offsetWidth / 2}px !important}
+          first.offsetWidth / 2 + last.offsetWidth / 2 - 2
+        }px) !important;left:${first.offsetWidth / 2 - 1}px !important}
                 .${pc}>.workflow__group_tail::before {width: calc(100% - ${
-          first.offsetWidth / 2 + last.offsetWidth / 2
+          first.offsetWidth / 2 + last.offsetWidth / 2 - 2
         }px) !important;left:${first.offsetWidth / 2}px !important}
                 `;
       }
@@ -646,6 +686,7 @@ const WorkFlowVnode = function () {
 const getStartNodeInfo = () => ({
   node: new UseStartProcessNode(),
 });
+getStartNodeInfo;
 const getEndNodeInfo = () => ({
   node: new UseEndProcessNode(),
 });
@@ -662,9 +703,7 @@ export default {
       [
         h(WorkFlowVnode(), {
           flowData: this.privateFlowData,
-          style: `transition: all .2s linear;${
-            this.scale ? `transform:scale(${this.scaleSize})` : ""
-          }`,
+          style: `${this.scale ? `transform:scale(${this.scaleSize})` : ""}`,
         }),
         this.scale
           ? h("div", { class: "workflow_indicator" }, [
@@ -770,7 +809,7 @@ export default {
      * 如果midRender开启 则需要指定 nodeRenderer函数
      * */
     nodeRenderer: {
-      type: Function || Null,
+      type: Function || null,
       default: null,
     },
     /***
@@ -779,6 +818,10 @@ export default {
     edit: {
       type: Boolean,
       default: false,
+    },
+    panelControlls: {
+      type: Array,
+      default: () => [],
     },
   },
   beforeCreate() {
@@ -826,7 +869,7 @@ export default {
       if (!Array.isArray(this.flowData))
         return console.warn("[sun-workflow error]: flowData 必須是 Array類型");
       this.privateFlowData = [
-        getStartNodeInfo(),
+        // getStartNodeInfo(),
         ...this.createAbstractNodes(this.flowData),
         getEndNodeInfo(),
       ];
@@ -869,7 +912,7 @@ export default {
     this.concatAbstractNodes();
   },
   watch: {
-    flowData(val) {
+    flowData() {
       this.concatAbstractNodes();
     },
   },
