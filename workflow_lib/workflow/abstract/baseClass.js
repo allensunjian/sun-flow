@@ -89,6 +89,7 @@ class OriginalNode {
     this.parentNode = null;
     this.parentNodeIndex = -1;
     this.removeNode = removeNodeMethod;
+    this.showClose = true;
   }
   setReference(reference, pos) {
     this.reference = reference;
@@ -97,6 +98,12 @@ class OriginalNode {
   setParentNode(parentNode, parentNodeIndex) {
     this.parentNode = parentNode;
     this.parentNodeIndex = parentNodeIndex;
+  }
+  setCloseHide() {
+    this.showClose = false;
+  }
+  setCloseShow() {
+    this.showClose = true;
   }
 }
 

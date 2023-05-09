@@ -225,7 +225,7 @@ let renderMethods = {
             scope.getHeaderContent(),
             scope.nodeType == 1
               ? ""
-              : REF.edit
+              : REF.edit && scope.showClose
               ? h("img", {
                   class: "workflow__header_close",
                   onclick: scope.removeNode.bind(scope),
@@ -837,7 +837,7 @@ export default {
           );
         }
         // 手动渲染与自动渲染
-        let { nodeType, bodyContent, headerContent } = this.midRender
+        let { nodeType, bodyContent, headerContent, hideClose } = this.midRender
           ? (() => {
               if (!this.nodeRenderer) {
                 throw new Error(
@@ -860,6 +860,7 @@ export default {
         _infoNode.node = nodeInstance;
         if (bodyContent) nodeInstance.setBody(bodyContent);
         if (headerContent) nodeInstance.setHeader(headerContent);
+        if (hideClose) nodeInstance.setCloseHide();
         nodeInstance.setNodeOriginInfo(_infoNode);
         return _infoNode;
       });
