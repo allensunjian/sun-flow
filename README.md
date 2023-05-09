@@ -2,7 +2,7 @@
 ## 沟通邮件： Allen_sun_js@hotmail.com
 
 # npm 安装 
-### npm install sun-flow --dev
+### npm install sun-flow
 
 #### 灵活，丰富，可用，扩展
 # 文档 见示例
