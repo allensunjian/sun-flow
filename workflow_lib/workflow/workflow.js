@@ -361,36 +361,45 @@ const bodyClick = (node) =>
   function () {
     REF.$emit("bodyClick", node);
   };
-// header 自定义内容渲染函数
-const handlerHeaderRender = function (content) {
-  this.headerContent = content;
-};
 
-// body 自定义内容渲染函数
-const handlerBodyRender = function (content) {
-  this.bodyContent = content;
-};
+class HBInter {
+  constructor() {
+    this.headerContent = null;
+    this.bodyContent = null;
+    // header 自定义内容渲染函数
+    this.setHeader = function handlerHeaderRender(content) {
+      this.headerContent = content;
+    };
+    // body 自定义内容渲染函数
+    this.setBody = function handlerBodyRender(content) {
+      this.bodyContent = content;
+    };
 
-const getHeaderContent = function () {
-  return this.headerContent ? this.headerContent : this.title;
-};
+    this.getHeaderContent = function getHeaderContent() {
+      return this.headerContent ? this.headerContent : this.title;
+    };
 
-const getBodyContent = function () {
-  return this.bodyContent
-    ? this.bodyContent
-    : h(
-        "div",
-        { style: "display: flex;justify-content: space-between;color:#BFBFBF" },
-        [
-          h("span", {}, [`请设置${this.title}`]),
-          h(
-            "img",
-            { class: "workflow__body_arrow", src: icon_arrow_right },
-            []
-          ),
-        ]
-      );
-};
+    this.getBodyContent = function getBodyContent() {
+      return this.bodyContent
+        ? this.bodyContent
+        : h(
+            "div",
+            {
+              style:
+                "display: flex;justify-content: space-between;color:#BFBFBF",
+            },
+            [
+              h("span", {}, [`请设置${this.title}`]),
+              h(
+                "img",
+                { class: "workflow__body_arrow", src: icon_arrow_right },
+                []
+              ),
+            ]
+          );
+    };
+  }
+}
 
 // class AbstractBuilinMethods {
 //   constructor() {
@@ -424,12 +433,7 @@ class UseAddConditionNode extends AddConditionNode {
   constructor() {
     super({ nodeRender, removeNodeMethod });
     this.setNodeOriginInfo = setNodeOriginInfo;
-    this.setBody = handlerBodyRender;
-    this.setHeader = handlerHeaderRender;
-    this.headerContent = null;
-    this.bodyContent = null;
-    this.getHeaderContent = getHeaderContent;
-    this.getBodyContent = getBodyContent;
+    Object.assign(this, new HBInter());
   }
 }
 
@@ -438,12 +442,7 @@ class UseInitiatorNode extends InitiatorNode {
   constructor() {
     super({ nodeRender, removeNodeMethod });
     this.setNodeOriginInfo = setNodeOriginInfo;
-    this.setBody = handlerBodyRender;
-    this.setHeader = handlerHeaderRender;
-    this.headerContent = null;
-    this.bodyContent = null;
-    this.getHeaderContent = getHeaderContent;
-    this.getBodyContent = getBodyContent;
+    Object.assign(this, new HBInter());
   }
 }
 
@@ -452,12 +451,7 @@ class UseApproverNode extends ApproverNode {
   constructor() {
     super({ nodeRender, removeNodeMethod });
     this.setNodeOriginInfo = setNodeOriginInfo;
-    this.setBody = handlerBodyRender;
-    this.setHeader = handlerHeaderRender;
-    this.headerContent = null;
-    this.bodyContent = null;
-    this.getHeaderContent = getHeaderContent;
-    this.getBodyContent = getBodyContent;
+    Object.assign(this, new HBInter());
   }
 }
 
@@ -466,12 +460,7 @@ class UseCcNode extends CcNode {
   constructor() {
     super({ nodeRender, removeNodeMethod });
     this.setNodeOriginInfo = setNodeOriginInfo;
-    this.setBody = handlerBodyRender;
-    this.setHeader = handlerHeaderRender;
-    this.headerContent = null;
-    this.bodyContent = null;
-    this.getHeaderContent = getHeaderContent;
-    this.getBodyContent = getBodyContent;
+    Object.assign(this, new HBInter());
   }
 }
 
@@ -480,12 +469,7 @@ class UseAgentNode extends AgentNode {
   constructor() {
     super({ nodeRender, removeNodeMethod });
     this.setNodeOriginInfo = setNodeOriginInfo;
-    this.setBody = handlerBodyRender;
-    this.setHeader = handlerHeaderRender;
-    this.headerContent = null;
-    this.bodyContent = null;
-    this.getHeaderContent = getHeaderContent;
-    this.getBodyContent = getBodyContent;
+    Object.assign(this, new HBInter());
   }
 }
 
@@ -494,12 +478,7 @@ class UseConditionNode extends ConditionNode {
   constructor() {
     super({ nodeRender, removeNodeMethod });
     this.setNodeOriginInfo = setNodeOriginInfo;
-    this.setBody = handlerBodyRender;
-    this.setHeader = handlerHeaderRender;
-    this.headerContent = null;
-    this.bodyContent = null;
-    this.getHeaderContent = getHeaderContent;
-    this.getBodyContent = getBodyContent;
+    Object.assign(this, new HBInter());
   }
 }
 

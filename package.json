@@ -1,6 +1,6 @@
 {
   "name": "sun-flow",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "description": "钉钉样式flow",
   "repository": "https://github.com/allensunjian/sun-flow",
   "main": "workflow_lib/workflow/workflow.js",
@@ -16,7 +16,7 @@
   "dependencies": {
     "core-js": "^3.8.3",
     "vue": "^3.2.13",
-    "sun-flow": "1.1.5",
+    "sun-flow": "1.1.6",
     "element-plus": "^1.0.2-beta.55"
   },
   "devDependencies": {
